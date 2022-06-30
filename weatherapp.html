@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather application</title>
+    <!-- Style helps to describing the persentation of web pages, including color, layout and fonts -->
+   <style>
+       @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+*{
+    margin: 0px;
+    padding:Opx
+}
+body{
+   background:url("https://pbs.twimg.com/media/Dxi1nFLXQAIqOy0.jpg");
+    color: white;
+    box-sizing: cover;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    
+} 
+.content{
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    width: 50%;
+    height: 80%;
+    background-color: blue;
+    border: 1px;
+    border-radius:10%;
+    
+}
+.heading{
+    margin: auto;
+    text-align: center;
+    padding-top:100px ;
+    padding: 25px;
+}
+
+.Current_condation{  
+    background-color:black;
+    opacity: 0.6;
+    padding: 4px;
+    width: 70%;
+    margin: auto;
+}
+.tabel{
+    border: 1px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 20px;
+    padding: 5px;
+    color: white;
+}
+</style>
+</head>
+<body>
+  <!--Weather App Body Starts Here-->
+    <div class="content" id="content">
+        <!--Header-->
+    <div class="heading">
+       
+      <h1>Weather in Henderson, US</h1>
+      <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather">
+    </div>
+    <!-- Current Weather Condition -->
+    <div class="Current_condation">
+          <div class="tabel">
+              <div>City Name</div>
+              <div id="country">Henderson</div>
+          </div> 
+          <div class="tabel">
+            <div>Weather</div>
+            <div id="Weather_condation"></div>
+        </div>            
+        <div class="tabel">
+            <div>Temperature</div>
+            <div id="Temperature"></div>
+        </div>   
+        <div class="tabel">
+            <div>Pressure</div>
+            <div id="pressure"></div>
+        </div>   
+        <div class="tabel">
+            <div>Humidity</div>
+            <div id="Humidity"></div>
+        </div>  
+        <div class="tabel">
+            <div>Wind Speed</div>
+            <div id="wind_speed"></div>
+        </div>    
+        <div class="tabel">
+            <div>Wind Direction</div>
+            <div id="wind_direction"></div>
+        </div>
+        <div class="tabel">
+            <div>Weather When</div>
+            <div id="when"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const Weather_condation1 = document.getElementById("Weather_condation");
+    const Temperature1 = document.getElementById("Temperature");
+    const pressure1 = document.getElementById("pressure");
+    const Humidity1 = document.getElementById("Humidity");
+    const wind_speed1 = document.getElementById("wind_speed");
+    const wind_direction1=document.getElementById("wind_direction");
+    const weather_when = document.getElementById("when");
+    
+//Getting JSON value
+fetch('http://localhost/nirajtamang/my_api.php?city=henderson')
+
+//Converting JSON value to JavaScript Object
+.then(response => response.json())
+.then(d => {
+
+    console.log(d); 
+    
+    var wD = d.wind_degree;
+    //checking weather direction 
+    function checkweather(wind_dir){
+        if ((wind_dir >= 0) && (wind_dir < 45)) {
+            return "NE";
+        } else if((wind_dir >= 45) && (wind_direction1 < 90)){
+            return "E";
+        }
+         else if((wind_dir >= 90) && (wind_dir < 135)){
+            return "SE";
+        }
+        else if((wind_dir >= 135) && (wind_dir < 180)){
+            return "S";
+        }
+        else if((wind_dir >= 180) && (wind_dir < 225)){
+            return "SW";
+        }
+        else if((wind_dir >= 225) && (wind_dir < 270)){
+            return"W";
+        }
+        else if((wind_dir >= 270) && (wind_dir < 315)){
+            return "NW"
+        }
+        else if((wind_dir >= 315) && (wind_dir <= 360)){
+            return "N"
+            }
+    }
+    //Displaying data to the user
+    Weather_condation1.innerText = d.weather_description;
+    Temperature1.innerText = d.weather_temperature + '°C';
+    pressure1.innerText = d.pressure +' hPa';
+    Humidity1.innerText = d.humidity + '%';
+    wind_speed1.innerText = d.weather_wind + ' m/s';
+    wind_direction1.innerText = wD +"°" + " ("+checkweather(wD)+")";
+    weather_when.innerHTML = d.weather_when;
+
+           
+}) ;	
+</script>
+</body>
+</html>
