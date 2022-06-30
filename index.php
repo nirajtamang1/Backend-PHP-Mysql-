@@ -107,10 +107,10 @@ if($Name!="" && $Email!="" && $Password !="" && $conform!=""){
     <input type="text" placeholder="Enter Email" name="email">
 
     <label for="psw"><b>Password</b></label>
-    <input type="text" placeholder="Enter Password" name="password">
+    <input type="password" placeholder="Enter Password" name="password">
 
     <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="text" placeholder="Repeat Password" name="psw-repeat">
+    <input type="password" placeholder="Repeat Password" name="psw-repeat">
     <hr>
   
 
